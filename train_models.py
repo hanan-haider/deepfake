@@ -89,7 +89,7 @@ def train_nn(
             fold_num=fold,
             fold_subset="train",
             reduced_number=amount_to_use,
-            oversample=True,
+            oversample=False,
         )
 
         data_test = AttackAgnosticDataset(
@@ -99,7 +99,7 @@ def train_nn(
             fold_num=fold,
             fold_subset="test",
             reduced_number=amount_to_use,
-            oversample=True,
+            oversample=False,
         )
 
         current_model = models.get_model(
