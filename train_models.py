@@ -64,8 +64,13 @@ def train_nn(
     LOGGER.info("Loading data...")
     model_name, model_parameters = model_config["name"], model_config["parameters"]
     optimizer_config = model_config["optimizer"]
+    print(f"Model: {model_name}")
+    print(f"Parameters: {model_parameters}")
+    print(f"Optimizer config: {optimizer_config}")
 
     use_cnn_features = False if model_name == "rawnet" else True
+
+    print("use_cnn_features",use_cnn_features)
 
     nn_data_setting = NNDataSetting(
         use_cnn_features=use_cnn_features,
