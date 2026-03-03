@@ -214,6 +214,7 @@ def main(args):
 
     with open(args.config, "r") as f:
         config = yaml.safe_load(f)
+        print("here is the configurations",config)
 
     seed = config["data"].get("seed", 42)
     # fix all seeds
@@ -225,6 +226,7 @@ def main(args):
         device = "cpu"
 
     model_dir = Path(args.ckpt)
+    print("model_dir",model_dir)
     model_dir.mkdir(parents=True, exist_ok=True)
 
     if not args.use_gmm:
