@@ -7,7 +7,7 @@ import torchaudio
 from torch.utils.data import Dataset
 from torch.utils.data.dataset import T_co
 
-from dfadetect.datasets import AudioDataset, PadDataset
+#from dfadetect.datasets import AudioDataset, PadDataset
 
 WAVE_FAKE_INTERFACE = True
 WAVE_FAKE_SR = 16_000
