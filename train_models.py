@@ -76,7 +76,9 @@ def train_nn(
     nn_data_setting = NNDataSetting(
         use_cnn_features=use_cnn_features,
     )
+    print("nn_data_setting",nn_data_setting)
     timestamp = time.time()
+    print("timestamp",timestamp)
     folds_number = 3
 
     for fold in range(folds_number):
@@ -241,7 +243,7 @@ def main(args):
             cnn_features_setting = CNNFeaturesSetting(**cnn_features_setting)
         else:
             cnn_features_setting = CNNFeaturesSetting()
-            print("cnn_features_setting",cnn_features_setting)
+            
 
         train_nn(
             datasets_paths=[args.asv_path, args.wavefake_path, args.celeb_path],
