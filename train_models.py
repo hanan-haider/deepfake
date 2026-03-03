@@ -241,6 +241,7 @@ def main(args):
             cnn_features_setting = CNNFeaturesSetting(**cnn_features_setting)
         else:
             cnn_features_setting = CNNFeaturesSetting()
+            print("cnn_features_setting",cnn_features_setting)
 
         train_nn(
             datasets_paths=[args.asv_path, args.wavefake_path, args.celeb_path],
