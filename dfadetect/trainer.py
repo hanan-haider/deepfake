@@ -13,12 +13,6 @@ from torch.utils.data import DataLoader
 
 
 
-
-
-
-
-
-
 @dataclass
 class NNDataSetting:
     use_cnn_features: bool
