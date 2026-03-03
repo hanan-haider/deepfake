@@ -11,3 +11,4 @@ import torchaudio
 class CNNFeaturesSetting:
     frontend_algorithm: List[str]= field(default_factory=lambda: ["mfcc"])
     use_spectrogram: bool = True
+    

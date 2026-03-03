@@ -16,4 +16,4 @@ from torch.utils.data import DataLoader
 @dataclass
 class NNDataSetting:
     use_cnn_features: bool
-    print("use_cnn_features",use_cnn_features)
+    print("use_cnn_features in nn",use_cnn_features)
