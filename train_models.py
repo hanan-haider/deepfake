@@ -9,7 +9,7 @@ import torch
 import yaml
 
 
-from dfadetect.cnn_features import CNNFeaturesSetting
+#from dfadetect.cnn_features import CNNFeaturesSetting
 #from dfadetect.agnostic_datasets.attack_agnostic_dataset import AttackAgnosticDataset
 #from dfadetect.datasets import apply_feature_and_double_delta, lfcc, mfcc
 #from dfadetect.models import models
