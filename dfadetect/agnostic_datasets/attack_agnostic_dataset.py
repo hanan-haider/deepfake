@@ -30,14 +30,6 @@ class AttackAgnosticDataset(SimpleAudioFakeDataset):
             asvspoof_dataset = ASVSpoofDataset(asvspoof_path, fold_num=fold_num, fold_subset=fold_subset)
             datasets.append(asvspoof_dataset)
 
-        if wavefake_path is not None:
-            #wavefake_dataset = WaveFakeDataset(wavefake_path, fold_num=fold_num, fold_subset=fold_subset)
-            #datasets.append(wavefake_dataset)
-
-        if fakeavceleb_path is not None:
-            #fakeavceleb_dataset = FakeAVCelebDataset(fakeavceleb_path, fold_num=fold_num, fold_subset=fold_subset)
-            #datasets.append(fakeavceleb_dataset)
-
         self.samples = pd.concat(
             [ds.samples for ds in datasets],
             ignore_index=True
