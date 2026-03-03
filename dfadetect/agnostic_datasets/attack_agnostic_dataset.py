@@ -1,7 +1,7 @@
 import pandas as pd
 
 #from dfadetect.agnostic_datasets.asvspoof_dataset import ASVSpoofDataset
-from dfadetect.agnostic_datasets.base_dataset import SimpleAudioFakeDataset
+#from dfadetect.agnostic_datasets.base_dataset import SimpleAudioFakeDataset
 #from dfadetect.agnostic_datasets.fakeavceleb_dataset import FakeAVCelebDataset
 #from dfadetect.agnostic_datasets.wavefake_dataset import WaveFakeDataset
 
@@ -22,7 +22,8 @@ class AttackAgnosticDataset(SimpleAudioFakeDataset):
         reduced_number=None,
     ):
         super().__init__(fold_num, fold_subset, transform, return_label)
-
+        print(f"super().__init__({fold_num}, {fold_subset}, {transform}, {return_label})")
+        
         datasets = []
 
         if asvspoof_path is not None:
