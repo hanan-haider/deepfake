@@ -17,6 +17,8 @@ SAMPLING_RATE = 16_000
 win_length = 400  # int((25 / 1_000) * SAMPLING_RATE)
 hop_length = 160  # int((10 / 1_000) * SAMPLING_RATE)
 
+device = "cuda" if torch.cuda.is_available() else "cpu"
+
 
 LFCC_FN = torchaudio.transforms.LFCC(
     sample_rate=SAMPLING_RATE,
