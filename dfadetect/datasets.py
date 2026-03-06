@@ -10,6 +10,13 @@ from torchaudio.functional import apply_codec
 
 
 
+SOX_SILENCE = [
+    # trim all silence that is longer than 0.2s and louder than 1% volume (relative to the file)
+    # from beginning and middle/end
+    ["silence", "1", "0.2", "1%", "-1", "0.2", "1%"],
+]
+
+
 
 class AudioDataset(torch.utils.data.Dataset):
     """Torch dataset to load data from a provided directory.
