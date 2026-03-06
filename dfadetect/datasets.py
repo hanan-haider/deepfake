@@ -10,6 +10,70 @@ from torchaudio.functional import apply_codec
 
 
 
+
+class AudioDataset(torch.utils.data.Dataset):
+    """Torch dataset to load data from a provided directory.
+
+    Args:
+        directory_or_path_list: Path to the directory containing wav files to load. Or a list of paths.
+    Raises:
+        IOError: If the directory does ot exists or the directory did not contain any wav files.
+    """
+
+    def __init__(
+        self,
+        directory_or_path_list: Union[Union[str, Path], List[Union[str, Path]]],
+        sample_rate: int = 16_000,
+        amount: Optional[int] = None,
+        normalize: bool = True,
+        trim: bool = True,
+        phone_call: bool = False,
+    ) -> None:
+        super().__init__()
+
+        self.trim = trim
+        self.sample_rate = sample_rate
+        self.normalize = normalize
+        self.phone_call = phone_call
+
+        if isinstance(directory_or_path_list, list):
+            paths = directory_or_path_list
+        elif isinstance(directory_or_path_list, Path) \
+                or isinstance(directory_or_path_list, str):
+            directory = Path(directory_or_path_list)
+            if not directory.exists():
+                raise IOError(f"Directory does not exists: {self.directory}")
+
+            paths = find_wav_files(directory)
+            if paths is None:
+                raise IOError(
+                    f"Directory did not contain wav files: {self.directory}")
+        else:
+            raise TypeError(
+                f"Supplied unsupported type for argument directory_or_path_list {type(directory_or_path_list)}!")
+
+        if amount is not None:
+            paths = paths[:amount]
+
+        self._paths = paths
+
+    def __getitem__(self, index: int) -> Tuple[torch.Tensor, int]:
+        path = self._paths[index]
+
+        waveform, sample_rate = torchaudio.load(path, normalize=self.normalize)
+
+        if sample_rate != self.sample_rate:
+            waveform, sample_rate = self.resample(path, self.sample_rate, self.normalize)
+
+        if self.trim:
+            waveform, sample_rate = self.apply_trim(waveform, sample_rate)
+
+        if self.phone_call:
+            waveform, sample_rate = self.process_phone_call(waveform, sample_rate)
+
+        return waveform, sample_rate
+
+
 class TransformDataset(torch.utils.data.Dataset):
     """A generic transformation dataset.
 
