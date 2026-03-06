@@ -74,6 +74,18 @@ class AudioDataset(torch.utils.data.Dataset):
         return waveform, sample_rate
 
 
+    @staticmethod
+    def apply_trim(waveform, sample_rate):
+        waveform_trimmed, sample_rate_trimmed = torchaudio.sox_effects.apply_effects_tensor(
+            waveform, sample_rate, SOX_SILENCE)
+
+        if waveform_trimmed.size()[1] > 0:
+            waveform = waveform_trimmed
+            sample_rate = sample_rate_trimmed
+
+        return waveform, sample_rate
+
+
 class TransformDataset(torch.utils.data.Dataset):
     """A generic transformation dataset.
 
