@@ -93,6 +93,42 @@ class AudioDataset(torch.utils.data.Dataset):
         return waveform, sample_rate
 
 
+
+
+class PadDataset(torch.utils.data.Dataset):
+
+    def __init__(self, dataset: torch.utils.data.Dataset, cut: int = 64600, label=None):
+        self.dataset = dataset
+        self.cut = cut  # max 4 sec (ASVSpoof default)
+        self.label = label
+
+    def __getitem__(self, index):
+        waveform, sample_rate = self.dataset[index]
+        waveform = self.apply_pad(waveform, self.cut)
+
+        if self.label is None:
+            return waveform, sample_rate
+        else:
+            return waveform, sample_rate, self.label
+
+    @staticmethod
+    def apply_pad(waveform, cut):
+        waveform = waveform.squeeze(0)
+        waveform_len = waveform.shape[0]
+
+        if waveform_len >= cut:
+            return waveform[:cut]
+
+        # need to pad
+        num_repeats = int(cut / waveform_len) + 1
+        padded_waveform = torch.tile(waveform, (1, num_repeats))[:, :cut][0]
+
+        return padded_waveform
+
+    def __len__(self):
+        return len(self.dataset)
+
+
 class TransformDataset(torch.utils.data.Dataset):
     """A generic transformation dataset.
 
