@@ -14,6 +14,18 @@ class CNNFeaturesSetting:
 
 
 
+
+LFCC_FN = torchaudio.transforms.LFCC(
+    sample_rate=SAMPLING_RATE,
+    n_lfcc=80,
+    speckwargs={
+        "n_fft": 512,
+        "win_length": win_length,
+        "hop_length": hop_length,
+    },
+).to(device)
+
+
 def prepare_feature_vector(
     audio: torch.Tensor,
     cnn_features_setting: CNNFeaturesSetting,
