@@ -109,8 +109,7 @@ def train_nn(
 
         LOGGER.info(f"Training '{model_name}' model on {len(data_train)} audio files.")
         LOGGER.info(f"Testing of '{model_name}' model on {len(data_test)} audio files.")
-
-
+        
         current_model = GDTrainer(
             device=device,
             batch_size=batch_size,
