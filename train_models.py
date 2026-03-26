@@ -82,6 +82,7 @@ def train_nn(
     folds_number = 3
 
     for fold in range(folds_number):
+        print("Loading the training data for fold",fold)
         data_train = AttackAgnosticDataset(
             asvspoof_path=datasets_paths[0],
             #wavefake_path=datasets_paths[1],
@@ -91,7 +92,7 @@ def train_nn(
             reduced_number=amount_to_use,
             oversample=False,
         )
-
+        print("Loading the testing data for fold",fold)
         data_test = AttackAgnosticDataset(
             asvspoof_path=datasets_paths[0],
             #wavefake_path=datasets_paths[1],
@@ -107,6 +108,8 @@ def train_nn(
         ).to(device)
 
         LOGGER.info(f"Training '{model_name}' model on {len(data_train)} audio files.")
+        LOGGER.info(f"Testing of '{model_name}' model on {len(data_test)} audio files.")
+
 
         current_model = GDTrainer(
             device=device,
